@@ -72,6 +72,7 @@ const std = @import("std");
 
 pub fn main() !void {
     const count = 1_000_000_000;
+    // const count = 1_00;
     var pi_plus: f64 = 0;
     var pi_minus: f64 = 0;
 
@@ -81,11 +82,13 @@ pub fn main() !void {
         defer handle1.join();
 
         // Second thread to calculate the minus numbers.
-        ???
-        
+        const handle2 = try std.Thread.spawn(.{}, thread_pi, .{ &pi_minus, 3, count });
+        defer handle2.join();
     }
     // Here we add up the results.
     std.debug.print("PI ≈ {d:.8}\n", .{4 + pi_plus - pi_minus});
+    // std.debug.print("PI ≈ {d:.8}\n", .{pi_plus});
+    // std.debug.print("PI ≈ {d:.8}\n", .{pi_minus});
 }
 
 fn thread_pi(pi: *f64, begin: u64, end: u64) !void {
