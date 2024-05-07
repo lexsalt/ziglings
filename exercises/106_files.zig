@@ -58,7 +58,7 @@ pub fn main() !void {
     // but here we are not yet done writing to the file
     // if only there are a keyword in zig that
     // allow you "defer" code execute to the end of scope...
-    file.close();
+    defer file.close();
 
     // !you are not allow to switch this two lines to before file closing line!
     const byte_written = try file.write("It's zigling time!");
